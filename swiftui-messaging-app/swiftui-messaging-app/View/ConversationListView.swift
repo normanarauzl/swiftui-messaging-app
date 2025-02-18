@@ -27,7 +27,7 @@ struct ConversationListView: View {
     }
         
     init(
-        conversations: [Conversation],
+        _ conversations: [Conversation],
         isShowingNewMessageView: Bool = false
     ) {
         self.conversations = conversations

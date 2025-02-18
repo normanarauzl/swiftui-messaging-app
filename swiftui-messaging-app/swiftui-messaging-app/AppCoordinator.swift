@@ -13,7 +13,7 @@ final class AppCoordinator: Coordinator {
     lazy var associatedView: SomeView = homeView
     
     private var homeView: some View {
-        ConversationListView(conversations: [
+        ConversationListView([
             sampleConversation,
             sampleLongConversation,
             sampleGroupConversation
