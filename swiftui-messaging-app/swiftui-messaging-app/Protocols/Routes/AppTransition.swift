@@ -9,5 +9,5 @@ import Foundation
 
 enum AppTransition: Hashable {
     case showMessageList
-    case showMessageDetails(Conversation)
+    case showConversationDetails(Conversation)
 }

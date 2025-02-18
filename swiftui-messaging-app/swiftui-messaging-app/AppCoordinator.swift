@@ -25,7 +25,7 @@ final class AppCoordinator: Coordinator {
         switch route {
         case .showMessageList:
             homeView
-        case .showMessageDetails(let conversation):
+        case .showConversationDetails(let conversation):
             ChatThreadView(conversation: conversation)
         }
     }
