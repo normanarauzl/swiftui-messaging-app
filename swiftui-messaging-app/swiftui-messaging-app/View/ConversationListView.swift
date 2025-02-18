@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ConversationListView: View {
     let conversations: [Conversation]
-    @Binding var selectedConversation: Conversation?
     @State var isShowingNewMessageView = false
     @State var textToSearch = ""
+    @EnvironmentObject private var coordinator: AppCoordinator
     
     // to learn more checkout https://medium.com/@jpmtech/how-to-add-search-to-your-swiftui-app-2d724bf72c16
     var filteredConversations: [Conversation] {
@@ -28,16 +28,14 @@ struct ConversationListView: View {
         
     init(
         conversations: [Conversation],
-        selectedConversation: Binding<Conversation?>,
         isShowingNewMessageView: Bool = false
     ) {
         self.conversations = conversations
-        self._selectedConversation = selectedConversation
         self.isShowingNewMessageView = isShowingNewMessageView
     }
     
     var body: some View {
-        List(filteredConversations, selection: $selectedConversation) { conversation in
+        List(filteredConversations) { conversation in
             ConversationListCell(conversation: conversation)
             // to learn more checkout https://medium.com/@jpmtech/swiftui-list-from-beginner-to-merlin-5308261b78b6
                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
@@ -64,7 +62,7 @@ struct ConversationListView: View {
                     .tint(.purple)
                 }
                 .onTapGesture {
-                    selectedConversation = conversation
+                    coordinator.process(route: .showMessageDetails(conversation))
                 }
         }
         .searchable(text: $textToSearch)

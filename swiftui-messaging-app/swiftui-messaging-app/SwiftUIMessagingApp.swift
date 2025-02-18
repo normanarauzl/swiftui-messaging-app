@@ -11,25 +11,12 @@ import SwiftUI
 struct SwiftUIMessagingApp: App {
     
     @State var selectedConversation: Conversation?
+    @ObservedObject private var appCoordinator: AppCoordinator = .init()
     
     var body: some Scene {
         WindowGroup {
-            NavigationSplitView {
-                ConversationListView(
-                    conversations: [
-                        sampleConversation,
-                        sampleLongConversation,
-                        sampleGroupConversation
-                    ],
-                    selectedConversation: $selectedConversation
-                )
-            } detail: {
-                if let selectedConversation {
-                    ChatThreadView(conversation: selectedConversation)
-                } else {
-                    ContentUnavailableView("Select a conversation", systemImage: "exclamationmark.bubble")
-                }
-            }
+            ContentView()
+                .environmentObject(appCoordinator)
         }
     }
 }

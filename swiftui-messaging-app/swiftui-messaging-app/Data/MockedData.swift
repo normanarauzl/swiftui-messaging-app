@@ -1,5 +1,5 @@
 //
-//  Data.swift
+//  MockedData.swift
 //  swiftui-messaging-app
 //
 //  Created by Norman Arauz on 13/2/25.
@@ -93,6 +93,7 @@ let sampleMessages = [
     Message(text: "Sure! I'll see you there!", createdAt: .now, author: sampleParticipantJohn),
     Message(text: "Great! See you there!", createdAt: .now, author: sampleParticipantJane)
 ]
+
 let sampleGroupMessage = [
     Message(text: "Hey, where do y'all want to eat at tonight?", createdAt: .now, author: sampleParticipantJohn),
     Message(text: "I don't know, I'm just thinking about it.", createdAt: .now, author: sampleParticipantJane),
