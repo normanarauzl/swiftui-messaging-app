@@ -11,10 +11,9 @@ protocol Router {
     associatedtype Route
     
     var navigationPath: NavigationPath { get set }
+    
     func process(route: Route)
     func pop()
 }
 
-protocol AppRouter: Router where Route == AppTransition {
-    
-}
+protocol AppRouter: Router where Route == AppTransition { }

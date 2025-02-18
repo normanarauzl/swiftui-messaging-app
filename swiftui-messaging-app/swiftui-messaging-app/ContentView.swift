@@ -8,15 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @EnvironmentObject private var appCoordinator: AppCoordinator
     @State var title: String = ""
     
     var body: some View {
         NavigationStack(path: $appCoordinator.navigationPath) {
             appCoordinator.associatedView
-                .navigationDestination(for: AppTransition.self) {
-                    appCoordinator.buid(for: $0)
+                .navigationDestination(for: AppTransition.self) { route in
+                    appCoordinator.build(for: route)
                 }
         }
     }

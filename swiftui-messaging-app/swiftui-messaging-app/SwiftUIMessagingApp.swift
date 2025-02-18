@@ -9,9 +9,7 @@ import SwiftUI
 
 @main
 struct SwiftUIMessagingApp: App {
-    
-    @State var selectedConversation: Conversation?
-    @ObservedObject private var appCoordinator: AppCoordinator = .init()
+    @StateObject private var appCoordinator: AppCoordinator = .init()
     
     var body: some Scene {
         WindowGroup {

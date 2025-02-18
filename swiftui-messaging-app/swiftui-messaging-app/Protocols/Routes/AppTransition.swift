@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AppTransition: Hashable, Equatable {
+enum AppTransition: Hashable {
     case showMessageList
     case showMessageDetails(Conversation)
 }

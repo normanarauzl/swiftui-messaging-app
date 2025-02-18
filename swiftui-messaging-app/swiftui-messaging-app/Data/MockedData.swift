@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct Participant: Identifiable, Equatable, Hashable {
+// FEEDBACK: - Move models to other file
+
+struct Participant: Identifiable, Hashable { // FEEDBACK: - Removed Equatable
     let id: String = UUID().uuidString
     let firstName: String
     let lastName: String
@@ -20,6 +22,68 @@ struct Participant: Identifiable, Equatable, Hashable {
             familyName: self.lastName,
             nickname: self.username
         )
+    }
+}
+
+struct Conversation: Identifiable, Hashable {
+    let id: String = UUID().uuidString
+    let participants: [Participant]
+    let messages: [Message]
+    let updatedAt: Date
+    let isRead: Bool
+    let isPinned: Bool
+    let profileImageLink: String?
+    
+    func particpantsNotIncludingCurrentUser() -> [Participant] {
+        return participants.filter { $0.id != sampleLoggedInUser.id } // FEEDBACK: - Remove unnecessary return
+    }
+}
+
+struct Message: Identifiable, Hashable {
+    let id: String = UUID().uuidString
+    let text: String
+    let createdAt: Date
+    let updatedAt = Date()
+    let author: Participant
+    // FEEDBACK: - For default values is better to use init.
+    let attachments: Attachment? = nil // FEEDBACK: - This never will be update because is a constants
+    let reactions: [Reaction] = [] // FEEDBACK: - This never will be update because is a constants
+}
+
+struct Attachment: Identifiable, Hashable {
+    let id: String
+    let width: Int
+    let height: Int
+    let url: String
+    let fileName: String
+    let size: Int
+    let type: String
+    let thumbnails: Thumbnails
+}
+
+struct Thumbnails: Hashable {
+    let small: Thumbnail
+    let large: Thumbnail
+    let full: Thumbnail
+}
+
+struct Thumbnail: Hashable {
+    let width: Int
+    let height: Int
+    let url: String
+}
+
+
+struct Reaction: Identifiable, Hashable {
+    let id: UUID
+    let message: Message
+    let author: Participant
+}
+
+// TODO: - Move this extension to other file
+extension Date {
+    var daysSinceNow: Int {
+        Calendar.current.dateComponents([.day], from: self, to: Date.now).day ?? .zero
     }
 }
 
@@ -102,63 +166,3 @@ let sampleGroupMessage = [
     Message(text: "Sounds good to me!", createdAt: .now, author: sampleParticipantJane),
     Message(text: "Sounds good to me too!", createdAt: .now, author: sampleParticipantAlex)
 ]
-
-struct Conversation: Identifiable, Hashable {
-    let id: String = UUID().uuidString
-    let participants: [Participant]
-    let messages: [Message]
-    let updatedAt: Date
-    let isRead: Bool
-    let isPinned: Bool
-    let profileImageLink: String?
-    
-    func particpantsNotIncludingCurrentUser() -> [Participant] {
-        return participants.filter { $0 != sampleLoggedInUser }
-    }
-}
-
-struct Message: Identifiable, Hashable {
-    let id: String = UUID().uuidString
-    let text: String
-    let createdAt: Date
-    let updatedAt = Date()
-    let author: Participant
-    let attachments: Attachment? = nil
-    let reactions: [Reaction] = []
-}
-
-struct Attachment: Identifiable, Hashable {
-    let id: String
-    let width: Int
-    let height: Int
-    let url: String
-    let fileName: String
-    let size: Int
-    let type: String
-    let thumbnails: Thumbnails
-}
-
-struct Thumbnails: Hashable {
-    let small: Thumbnail
-    let large: Thumbnail
-    let full: Thumbnail
-}
-
-struct Thumbnail: Hashable {
-    let width: Int
-    let height: Int
-    let url: String
-}
-
-
-struct Reaction: Identifiable, Hashable {
-    let id: UUID
-    let message: Message
-    let author: Participant
-}
-
-extension Date {
-    var daysSinceNow: Int {
-        Calendar.current.dateComponents([.day], from: self, to: Date.now).day ?? 0
-    }
-}
