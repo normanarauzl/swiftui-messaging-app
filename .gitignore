@@ -61,5 +61,3 @@ fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
 swiftui-messaging-app/.DS_Store
-/swiftui-messaging-app
-swiftui-messaging-app/.DS_Store
