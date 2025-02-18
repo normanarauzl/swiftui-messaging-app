@@ -13,9 +13,8 @@ struct ConversationListCell: View {
     
     var body: some View {
         HStack {
-            if dynamicTypeSize >= .accessibility1 {
-                EmptyView()
-            } else {
+            
+            if dynamicTypeSize < .accessibility1 {
                 Circle()
                     .fill(conversation.isRead ? .clear : .blue)
                     .frame(width: 10, height: 10)

@@ -22,10 +22,8 @@ struct AddAttachmentsView: View {
                 .fill(.clear)
                 .edgesIgnoringSafeArea(.all)
                 .matchedGeometryEffect(id: matchingGeometryID, in: attachmentPickerAnimation, isSource: false)
-            // to learn more checkout https://medium.com/@jpmtech/using-matchedgeometryeffect-in-swiftui-d9d5542c5a4d
             
             VStack(alignment: .leading, spacing: 30) {
-                // to learn more checkout https://medium.com/@jpmtech/swiftui-displaying-a-photo-picker-2531c06d5209
                 PhotosPicker(
                     selection: $photoSelectorVM.selectedPhotos,
                     maxSelectionCount: maxPhotosToSelect,

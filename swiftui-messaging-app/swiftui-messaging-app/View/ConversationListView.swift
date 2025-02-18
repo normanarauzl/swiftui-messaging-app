@@ -13,7 +13,6 @@ struct ConversationListView: View {
     @State var textToSearch = ""
     @EnvironmentObject private var coordinator: AppCoordinator
     
-    // to learn more checkout https://medium.com/@jpmtech/how-to-add-search-to-your-swiftui-app-2d724bf72c16
     var filteredConversations: [Conversation] {
         if textToSearch.isEmpty {
             return conversations
@@ -37,28 +36,18 @@ struct ConversationListView: View {
     var body: some View {
         List(filteredConversations) { conversation in
             ConversationListCell(conversation: conversation)
-            // to learn more checkout https://medium.com/@jpmtech/swiftui-list-from-beginner-to-merlin-5308261b78b6
                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                    Button {
-                        // mark conversation as unread
-                    } label: {
-                        Image(systemName: "message.badge")
-                    }
+                    Button { }
+                    label: { Image(systemName: "message.badge") }
                     .tint(.blue)
                 }
                 .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                    Button {
-                        // Delete conversation
-                    } label: {
-                        Image(systemName: "trash")
-                    }
+                    Button { }
+                    label: { Image(systemName: "trash") }
                     .tint(.red)
                     
-                    Button {
-                        // turn of notifications
-                    } label: {
-                        Image(systemName: "bell.slash")
-                    }
+                    Button { }
+                    label: { Image(systemName: "bell.slash") }
                     .tint(.purple)
                 }
                 .onTapGesture {
