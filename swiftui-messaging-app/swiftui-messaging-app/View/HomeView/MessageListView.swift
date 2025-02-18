@@ -27,11 +27,9 @@ struct MessageListView: View {
             }
             .padding()
         }
-        // starts scrolling from the bottom of the list
         .defaultScrollAnchor(.bottom)
     }
     
-    // to learn more checkout https://medium.com/@jpmtech/swiftui-format-dates-and-times-the-easy-way-fc896b25003b
     func formatedDate(_ date: Date) -> some View {
         if date.daysSinceNow < 1 {
             Text("Today \(date.formatted(date: .omitted, time: .shortened))")
@@ -43,21 +41,4 @@ struct MessageListView: View {
             Text("\(date.formatted(.dateTime.weekday())), \(date.formatted(.dateTime.day().month())) at \(date.formatted(date: .omitted, time: .shortened))")
         }
     }
-}
-
-#Preview {
-    MessageListView(
-        messages: [
-            // 10 days before
-            Message(text: "Hello World", createdAt: .now.addingTimeInterval(-86400 * 10), author: sampleParticipantJohn),
-            // 3 days before
-            Message(text: "Hello World", createdAt: .now.addingTimeInterval(-86400 * 3), author: sampleParticipantJohn),
-            // yesterday
-            Message(text: "Hello World", createdAt: .now.addingTimeInterval(-86400 * 1), author: sampleParticipantJohn),
-            //today
-            sampleMessageHelloWorldJohn,
-            sampleMessageHelloWorldJane,
-        ],
-        shouldShowParticipantInfo: true
-    )
 }

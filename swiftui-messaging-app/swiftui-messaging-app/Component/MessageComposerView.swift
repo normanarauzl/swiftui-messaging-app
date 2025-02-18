@@ -26,7 +26,6 @@ struct MessageComposerView: View {
                     .imageScale(.large)
             }
             .matchedGeometryEffect(id: matchingGeometryID, in: attachmentPickerAnimation, isSource: true)
-            // to learn more checkout https://medium.com/@jpmtech/using-matchedgeometryeffect-in-swiftui-d9d5542c5a4d
             
             VStack(spacing: 0) {
                 // MARK: Attachments list
