@@ -46,7 +46,6 @@ struct AvatarView: View {
         .clipShape(Circle())
     }
     
-    @ViewBuilder
     func fallbackToInitials() -> some View {
         Text(participant.name, format: .name(style: .abbreviated))
             .font(.title2)

@@ -8,37 +8,19 @@
 import SwiftUI
 
 struct ConversationListView: View {
-    let conversations: [Conversation]
     @State var isShowingNewMessageView = false
     @State var textToSearch = ""
     @EnvironmentObject private var coordinator: AppCoordinator
     
-    var filteredConversations: [Conversation] {
-        if textToSearch.isEmpty {
-            return conversations
-        }
-        
-        return conversations.filter {
-            $0.messages.contains(where: { $0.text.localizedCaseInsensitiveContains(textToSearch) }) ||
-            $0.participants.contains(where: { $0.firstName.localizedCaseInsensitiveContains(textToSearch) }) ||
-            $0.participants.contains(where: { $0.lastName.localizedCaseInsensitiveContains(textToSearch) })
-        }
-    }
+    private let viewModel: ConversationListViewModel
     
-    func getSuggestions() {
-        
-    }
-        
-    init(
-        _ conversations: [Conversation],
-        isShowingNewMessageView: Bool = false
-    ) {
-        self.conversations = conversations
-        self.isShowingNewMessageView = isShowingNewMessageView
+    init(veiwModel: ConversationListViewModel,
+        isShowingNewMessageView: Bool = false) {
+        self.viewModel = veiwModel
     }
     
     var body: some View {
-        List(filteredConversations) { conversation in
+        List(viewModel.filteredConversations(textToSearch)) { conversation in
             ConversationListCell(conversation: conversation)
                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
                     Button { }
@@ -58,7 +40,7 @@ struct ConversationListView: View {
                     coordinator.process(route: .showConversationDetails(conversation))
                 }
         }
-        .searchable(text: $textToSearch)
+        .searchable(text: $textToSearch, prompt: "Search conversation...")
         .navigationTitle("Messages")
         .toolbar {
             ToolbarItem {

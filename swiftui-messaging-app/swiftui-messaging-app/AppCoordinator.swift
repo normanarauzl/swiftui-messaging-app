@@ -13,11 +13,13 @@ final class AppCoordinator: Coordinator {
     lazy var associatedView: SomeView = homeView
     
     private var homeView: some View {
-        ConversationListView([
+        let viewModel: ConversationListViewModel = .init(conversations: [
             sampleConversation,
             sampleLongConversation,
             sampleGroupConversation
-        ])
+         ])
+        
+        return ConversationListView(veiwModel: viewModel)
     }
     
     @ViewBuilder
