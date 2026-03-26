@@ -14,6 +14,7 @@ struct MessageComposerView: View {
     let attachmentPickerAnimation: Namespace.ID
     @Binding var attachments: [Attachment]
     @Bindable var photoSelectorVM: PhotoSelectorViewModel
+    let onSend: () -> Void
     
     var body: some View {
         HStack(alignment: .bottom) {
@@ -79,7 +80,7 @@ struct MessageComposerView: View {
                 EmptyView()
             } else {
                 Button {
-                    // send message
+                    onSend()
                 } label: {
                     Image(systemName: "arrow.up.circle.fill")
                         .imageScale(.large)

@@ -15,11 +15,17 @@ struct ChatThreadView: View {
     @Namespace var attachmentPickerAnimation
     let matchingGeometryID = "attachments"
     @State var photoSelectorVM = PhotoSelectorViewModel()
+    @State private var messages: [Message]
+    
+    init(conversation: Conversation) {
+        self.conversation = conversation
+        _messages = State(initialValue: conversation.messages)
+    }
     
     var body: some View {
         VStack {
             MessageListView(
-                messages: conversation.messages,
+                messages: messages,
                 shouldShowParticipantInfo: conversation.participants.count > 2
             )
             
@@ -29,7 +35,8 @@ struct ChatThreadView: View {
                 matchingGeometryID: matchingGeometryID,
                 attachmentPickerAnimation: attachmentPickerAnimation,
                 attachments: $attachments,
-                photoSelectorVM: photoSelectorVM
+                photoSelectorVM: photoSelectorVM,
+                onSend: sendMessage
             )
             .padding([.horizontal, .bottom])
         }
@@ -43,5 +50,21 @@ struct ChatThreadView: View {
                 )
             }
         }
+    }
+    
+    private func sendMessage() {
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard trimmed.isEmpty == false else { return }
+        
+        let newMessage = Message(
+            text: trimmed,
+            createdAt: .now,
+            author: sampleLoggedInUser
+        )
+        
+        messages.append(newMessage)
+        text = ""
+        attachments.removeAll()
+        photoSelectorVM.images.removeAll()
     }
 }

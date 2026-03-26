@@ -14,9 +14,9 @@ struct ConversationListView: View {
     
     private let viewModel: ConversationListViewModel
     
-    init(veiwModel: ConversationListViewModel,
+    init(viewModel: ConversationListViewModel,
         isShowingNewMessageView: Bool = false) {
-        self.viewModel = veiwModel
+        self.viewModel = viewModel
     }
     
     var body: some View {

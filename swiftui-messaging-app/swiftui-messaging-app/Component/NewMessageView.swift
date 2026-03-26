@@ -55,7 +55,8 @@ struct NewMessageView: View {
                 matchingGeometryID: matchingGeometryID,
                 attachmentPickerAnimation: attachmentPickerAnimation,
                 attachments: $attachments,
-                photoSelectorVM: photoSelectorVM
+                photoSelectorVM: photoSelectorVM,
+                onSend: handleSend
             )
             .padding([.horizontal, .bottom])
         }
@@ -69,5 +70,14 @@ struct NewMessageView: View {
                 )
             }
         }
+    }
+    
+    private func handleSend() {
+        let trimmed = message.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard trimmed.isEmpty == false else { return }
+        
+        message = ""
+        attachments.removeAll()
+        photoSelectorVM.images.removeAll()
     }
 }

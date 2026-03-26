@@ -10,7 +10,7 @@ import SwiftUI
 final class AppCoordinator: Coordinator {
     @Published var navigationPath: NavigationPath = NavigationPath()
     
-    lazy var associatedView: SomeView = homeView
+    lazy var associatedView: SomeView = build(for: .showMessageList)
     
     private var homeView: some View {
         let viewModel: ConversationListViewModel = .init(conversations: [
@@ -19,7 +19,7 @@ final class AppCoordinator: Coordinator {
             sampleGroupConversation
          ])
         
-        return ConversationListView(veiwModel: viewModel)
+        return ConversationListView(viewModel: viewModel)
     }
     
     @ViewBuilder
